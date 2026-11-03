@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تسجيل مندوب شحن</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
+body{background:#FBE5D6;min-height:100vh;display:flex;justify-content:center;padding:12px}
+.card{width:100%;max-width:380px;background:#fff;border-radius:28px;padding:18px 14px 16px;box-shadow:0 15px 40px rgba(0,0,0,.12)}
+.top{display:flex;align-items:center;gap:12px;margin-bottom:4px}
+.back{width:38px;height:38px;border:1.8px solid #FF7A00;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#FF7A00;font-size:22px}
+.top h1{font-size:26px;font-weight:900;color:#2B3A4A;flex:1}
+.sub{color:#8C9BAB;font-size:12.5px;font-weight:600;margin:2px 0 16px;text-align:right;padding-right:4px}
+.label{font-size:12px;font-weight:800;color:#2B3A4A;text-align:right;display:block;margin:12px 6px 6px 0}
+.inp{width:100%;border:1.5px solid #D9E1E8;border-radius:14px;height:52px;display:flex;align-items:center;padding:0 14px;gap:10px;background:#fff}
+.inp:focus-within{border-color:#FF7A00}
+.inp input{flex:1;border:none;outline:none;font-size:14px;font-weight:700;color:#333;background:transparent}
+.inp input::placeholder{color:#9AA8B5;font-weight:600}
+.ico{color:#FF7A00;font-size:22px;width:26px;display:flex;align-items:center;justify-content:center}
+.ico svg{width:24px;height:24px;fill:#FF7A00}
+.sec{margin-top:18px}
+.sec h2{font-size:20px;font-weight:900;color:#2B3A4A;margin-bottom:12px}
+.vehicles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px}
+.v{border:1.8px solid #D9E1E8;border-radius:14px;padding:10px 6px 8px;text-align:center;position:relative;cursor:pointer;background:#fff}
+.v.active{border-color:#FF7A00;box-shadow:0 4px 12px rgba(255,122,0,.2)}
+.v .check{position:absolute;top:6px;right:6px;width:22px;height:22px;background:#FF7A00;border-radius:50%;color:#fff;font-size:13px;display:none;align-items:center;justify-content:center}
+.v.active .check{display:flex}
+.v .vico{font-size:28px;color:#FF7A00;margin:18px 0 6px}
+.v h3{font-size:12px;font-weight:900;color:#111;line-height:1.2}
+.v p{font-size:8.5px;font-weight:700;color:#6B7E8F;margin-top:4px;line-height:1.2}
+.btn{width:100%;margin-top:20px;background:#E46A18;color:#fff;border:none;height:54px;border-radius:16px;font-size:22px;font-weight:900;cursor:pointer}
+.foot{margin-top:10px;text-align:center;font-size:11px;font-weight:700;color:#222}
+.foot span{color:#8B3A00;text-decoration:underline;font-weight:900}
+</style>
+</head>
+<body>
+<div class="card">
+<div class="top"><div class="back">›</div><h1>تسجيل مندوب شحن</h1></div>
+<div class="sub">أكمل بياناتك للانضمام كمندوب شحن</div>
+
+<span class="label">الاسم</span>
+<div class="inp"><span class="ico">👤</span><input id="name" placeholder="أدخل الاسم الكامل"></div>
+
+<span class="label">السن</span>
+<div class="inp"><span class="ico">🗓️</span><input id="age" type="number" placeholder="أدخل السن"></div>
+
+<span class="label">رقم التليفون</span>
+<div class="inp"><span class="ico">📞</span><input id="phone" type="tel" placeholder="05xxxxxexx"></div>
+
+<span class="label">العنوان</span>
+<div class="inp"><span class="ico">📍</span><input id="addr" placeholder="أدخل العنوان بالتفصيل"></div>
+
+<div class="sec"><h2>اختيار نوع السيارة</h2>
+<div class="vehicles">
+<div class="v" data-v="تروسيكل - 200 كجم" onclick="sel(this)">
+<div class="check">✓</div><div class="vico">🛺</div><h3>تروسيكل</h3><p>حمولة حتى 200 كجم</p>
+</div>
+<div class="v" data-v="سيارة ثمن نقل - 750 كجم" onclick="sel(this)">
+<div class="check">✓</div><div class="vico">🚚</div><h3>سيارة ثمن نقل</h3><p>حمولة حتى 750 كجم</p>
+</div>
+<div class="v active" data-v="سيارة ربع نقل - 1 طن" onclick="sel(this)">
+<div class="check">✓</div><div class="vico">🛻</div><h3>سيارة ربع نقل</h3><p>حمولة حتى 1 طن</p>
+</div>
+</div>
+</div>
+
+<button class="btn" onclick="send()">تسجيل</button>
+<div class="foot">بالتسجيل أنت توافق على <span>الشروط والأحكام</span></div>
+</div>
+
+<script>
+let selV='سيارة ربع نقل - 1 طن';
+function sel(el){
+document.querySelectorAll('.v').forEach(x=>x.classList.remove('active'));
+el.classList.add('active'); selV=el.dataset.v;
+}
+function send(){
+let n=document.getElementById('name').value.trim();
+let a=document.getElementById('age').value.trim();
+let p=document.getElementById('phone').value.trim();
+let ad=document.getElementById('addr').value.trim();
+if(!n||!a||!p||!ad){alert('كمل البيانات كلها');return;}
+let msg=`طلب مندوب جديد%0Aالاسم:${n}%0Aالسن:${a}%0Aالهاتف:${p}%0Aالعنوان:${ad}%0Aالسيارة:${selV}`;
+window.open(`https://wa.me/2010xxxxxxx?text=${msg}`,'_blank');
+}
+</script>
+</body>
+  </html>

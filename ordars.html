@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>استقبال الطلبات - سهلة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;font-family:'Cairo',sans-serif}
+body{background:#FFF6EE;min-height:100vh}
+.header{background:#FF6A00;padding:12px 16px;color:#fff;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 20px 20px}
+.h-left{display:flex;align-items:center;gap:10px}
+.avatar{width:44px;height:44px;background:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:22px}
+.h-left h3{font-size:15px;font-weight:900;line-height:1.1}
+.h-left p{font-size:11px;opacity:.9}
+.online{display:flex;align-items:center;gap:6px;background:#fff;color:#FF6A00;padding:6px 12px;border-radius:20px;font-size:12px;font-weight:900}
+.dot{width:10px;height:10px;background:#0f0;border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{0%,100%{opacity:1}50%{opacity:.3}}
+.container{max-width:400px;margin:0 auto;padding:12px}
+.stats{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:12px}
+.st{background:#fff;border-radius:14px;padding:10px;text-align:center;border:1.5px solid #FFE0BF}
+.st h4{font-size:22px;font-weight:900;color:#FF6A00}
+.st p{font-size:11px;font-weight:700;color:#666}
+.switch{background:#fff;border-radius:14px;padding:12px 16px;display:flex;justify-content:space-between;align-items:center;border:1.5px solid #FFE0BF;margin-bottom:12px}
+.sw{width:50px;height:28px;background:#ddd;border-radius:20px;position:relative;cursor:pointer;transition:.3s}
+.sw.active{background:#0f0}
+.sw::after{content:'';position:absolute;width:24px;height:24px;background:#fff;border-radius:50%;top:2px;left:2px;transition:.3s;box-shadow:0 2px 4px rgba(0,0,0,.2)}
+.sw.active::after{left:24px}
+.orders{display:flex;flex-direction:column;gap:12px}
+.order{background:#fff;border-radius:18px;padding:14px;border:1.5px solid #E6E6E6;position:relative;overflow:hidden}
+.order.new{border-color:#FF6A00;box-shadow:0 6px 18px rgba(255,106,0,.15)}
+.badge{position:absolute;top:0;right:0;background:#FF6A00;color:#fff;font-size:10px;font-weight:900;padding:4px 10px;border-radius:0 18px 0 12px}
+.o-top{display:flex;justify-content:space-between;align-items:center;margin:8px 0}
+.o-top h3{font-size:14px;font-weight:900}
+.o-top span{font-size:13px;font-weight:900;color:#FF6A00;background:#FFF1E0;padding:4px 10px;border-radius:10px}
+.route{margin:10px 0}
+.route div{display:flex;gap:10px;align-items:center;font-size:13px;font-weight:700;margin:6px 0}
+.dot1{width:10px;height:10px;background:#FF6A00;border-radius:50%}
+.dot2{width:10px;height:10px;background:#111;border-radius:50%}
+.line{width:2px;height:14px;background:#ddd;margin-right:4px;margin-top:-4px;margin-bottom:-4px}
+.info{display:flex;gap:8px;margin:10px 0}
+.info span{background:#F5F5F5;padding:5px 10px;border-radius:8px;font-size:11px;font-weight:700}
+.btns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.accept{background:#FF6A00;color:#fff;border:none;padding:12px;border-radius:12px;font-weight:900;font-size:14px;cursor:pointer}
+.reject{background:#fff;border:1.5px solid #ddd;padding:12px;border-radius:12px;font-weight:800;font-size:14px;cursor:pointer}
+.empty{text-align:center;padding:40px 20px;color:#999}
+.empty h3{font-size:18px;color:#666;margin:10px 0}
+</style>
+</head>
+<body>
+<div class="header">
+<div class="h-left">
+<div class="avatar">👤</div>
+<div>
+<h3 id="dName">محمد احمد</h3>
+<p id="dCar">سيارة ربع نقل - 1 طن</p>
+</div>
+</div>
+<div class="online"><div class="dot"></div> متاح</div>
+</div>
+
+<div class="container">
+<div class="stats">
+<div class="st"><h4>0 ج</h4><p>أرباح اليوم</p></div>
+<div class="st"><h4>0</h4><p>طلبات اليوم</p></div>
+</div>
+
+<div class="switch">
+<div><h4 style="font-size:14px;font-weight:900">متاح لاستقبال الطلبات</h4><p style="font-size:11px;color:#666">سيصلك اشعار عند وجود طلب جديد</p></div>
+<div class="sw active" id="sw" onclick="this.classList.toggle('active')"></div>
+</div>
+
+<div class="orders" id="orders">
+<!-- طلب 1 -->
+<div class="order new">
+<div class="badge">جديد 🔥</div>
+<div class="o-top"><h3>طلب #1023</h3><span>85 جنيه</span></div>
+<div class="route">
+<div><div class="dot1"></div> المنصورة - شارع الجلاء</div>
+<div class="line"></div>
+<div><div class="dot2"></div> جمصه - المنطقة الصناعية</div>
+</div>
+<div class="info">
+<span>📦 150 كجم</span><span>📏 12 كم</span><span>💳 كاش</span>
+</div>
+<div class="btns">
+<button class="reject" onclick="this.closest('.order').remove()">رفض</button>
+<button class="accept" onclick="accept(this)">قبول الطلب ✅</button>
+</div>
+</div>
+
+<!-- طلب 2 -->
+<div class="order new">
+<div class="badge">جديد</div>
+<div class="o-top"><h3>طلب #1024</h3><span>120 جنيه</span></div>
+<div class="route">
+<div><div class="dot1"></div> بلقاس - مصنع</div>
+<div class="line"></div>
+<div><div class="dot2"></div> المنصورة - توريل</div>
+</div>
+<div class="info">
+<span>📦 500 كجم</span><span>📏 25 كم</span><span>💳 محفظة</span>
+</div>
+<div class="btns">
+<button class="reject" onclick="this.closest('.order').remove()">رفض</button>
+<button class="accept" onclick="accept(this)">قبول الطلب ✅</button>
+</div>
+</div>
+
+</div>
+</div>
+
+<script>
+// قراءة بيانات المندوب من التسجيل
+let name = localStorage.getItem('driverName');
+let car = localStorage.getItem('driverCar');
+if(name) document.getElementById('dName').innerText = name;
+if(car) document.getElementById('dCar').innerText = car;
+
+function accept(btn){
+let order = btn.closest('.order');
+order.style.background = '#FFF6EE';
+btn.innerText = 'تم القبول - تواصل مع العميل 📞';
+btn.style.background = '#111';
+document.querySelectorAll('.st h4')[0].innerText = '85 ج';
+document.querySelectorAll('.st h4')[1].innerText = '1';
+alert('تم قبول الطلب! تواصل مع العميل على 01023284996');
+}
+
+setInterval(()=>{
+if(document.getElementById('sw').classList.contains('active')){
+let audio = new Audio('https://cdn.pixabay.com/download/audio/2022/03/24/audio_1234.mp3');
+}
+},15000)
+</script>
+</body>
+  </html>

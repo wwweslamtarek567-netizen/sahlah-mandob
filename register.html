@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التسجيل كمندوب - سهلة</title>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;font-family:'Cairo',sans-serif}
+body{background:#FF7A00;min-height:100vh}
+.header{background:#FF6A00;padding:15px 20px;display:flex;justify-content:space-between;color:#fff;align-items:center}
+.header h2{font-size:26px;font-weight:900}
+.box{max-width:460px;margin:20px auto;background:#fff;border-radius:28px;padding:22px 18px;box-shadow:0 12px 30px rgba(0,0,0,.25)}
+.box h1{text-align:center;font-size:24px;font-weight:900;margin-bottom:4px}
+.box p.sub{text-align:center;color:#666;font-size:13px;margin-bottom:18px}
+label{font-weight:800;font-size:13px;display:block;margin:12px 0 5px}
+input,select,textarea{width:100%;padding:12px 14px;border:2px solid #FFE0BF;border-radius:14px;font-size:14px;outline:none}
+input:focus,select:focus{border-color:#FF6A00}
+.vehicles{display:grid;grid-template-columns:1fr 1fr 1fr;gap:8px;margin-top:6px}
+.v{border:2px solid #FFE0BF;border-radius:14px;padding:10px;text-align:center;cursor:pointer;font-weight:800;font-size:12px}
+.v.active{border-color:#FF6A00;background:#FFF2E3}
+.btn{width:100%;margin-top:18px;background:#111;color:#fff;border:none;padding:15px;border-radius:16px;font-size:18px;font-weight:900;cursor:pointer}
+.btn2{width:100%;margin-top:10px;background:#FFD400;color:#000;border:none;padding:12px;border-radius:14px;font-weight:900}
+.note{text-align:center;margin-top:12px;font-size:11px;color:#777}
+</style>
+</head>
+<body>
+<div class="header"><span>🚚</span><h2>سهلة</h2><span></span></div>
+<div class="box">
+<h1>سجل كمندوب مع سهلة</h1>
+<p class="sub">املأ بياناتك وسيتم التواصل معك خلال 24 ساعة</p>
+
+<label>الاسم بالكامل</label>
+<input id="name" placeholder="مثال: اسلام طارق">
+
+<label>رقم الموبايل (واتساب)</label>
+<input id="phone" placeholder="010xxxxxxxx" type="tel">
+
+<label>المحافظة</label>
+<select id="gov">
+<option>القاهرة</option><option>الجيزة</option><option>الإسكندرية</option><option>الدقهلية</option><option>الشرقية</option><option>الغربية</option><option>المنوفية</option><option>القليوبية</option><option>البحيرة</option><option>كفر الشيخ</option><option>باقي المحافظات</option>
+</select>
+
+<label>نوع المركبة</label>
+<div class="vehicles">
+<div class="v" data-v="ربع نقل" onclick="sel(this)">🛻<br>ربع نقل</div>
+<div class="v" data-v="تمناية" onclick="sel(this)">🚐<br>تمناية</div>
+<div class="v" data-v="تروسيكل" onclick="sel(this)">🛺<br>تروسيكل</div>
+</div>
+
+<label>رقم الرخصة / البطاقة</label>
+<input id="license" placeholder="اختياري">
+
+<label>ملاحظات</label>
+<textarea id="note" rows="2" placeholder="اكتب لو عندك خبرة سابقة..."></textarea>
+
+<button class="btn" onclick="send()">إرسال طلب التسجيل ✅</button>
+<button class="btn2" onclick="location.href='index.html'">الرجوع للرئيسية</button>
+<p class="note">بالتسجيل انت توافق على شروط سهلة - الدفع عمولة على كل أوردر</p>
+</div>
+
+<script>
+let vehicle='';
+function sel(el){
+document.querySelectorAll('.v').forEach(x=>x.classList.remove('active'));
+el.classList.add('active');
+vehicle=el.dataset.v;
+}
+function send(){
+let n=document.getElementById('name').value.trim();
+let p=document.getElementById('phone').value.trim();
+if(!n || !p || !vehicle){alert('اكمل كل البيانات واختار نوع العربية');return;}
+let msg=`طلب تسجيل مندوب جديد - سهلة%0A%0Aالاسم: ${n}%0Aالموبايل: ${p}%0Aالمحافظة: ${document.getElementById('gov').value}%0Aالعربية: ${vehicle}%0Aالرخصة: ${document.getElementById('license').value}%0Aملاحظات: ${document.getElementById('note').value}`;
+window.open(`https://wa.me/2010xxxxxxx?text=${msg}`,'_blank');
+alert('تم إرسال طلبك! هنتواصل معاك واتساب');
+}
+</script>
+</body>
+  </html>
